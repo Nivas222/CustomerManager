@@ -13,4 +13,10 @@ export class FirstPageComponent implements OnInit {
   showCust(){
     this.router.navigateByUrl('showCust')
   }
+  removeCust(){
+    this.router.navigateByUrl('removeCust')
+  }
+  updateCust(){
+    this.router.navigateByUrl('updateCust')
+  }
 }

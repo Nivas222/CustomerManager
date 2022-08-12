@@ -28,12 +28,11 @@
   <br>
   <div class="row">
     <div class="col">
-      <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;" data-bs-toggle="modal"
-        data-bs-target="#removeCustomersModal">Remove Customers</button>
+      <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;" (click)="removeCust()">Remove Customers</button>
     </div>
     <div class="col"></div>
     <div class="col">
-      <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;">Update Customer
+      <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;" (click)="updateCust()">Update Customer
         Details</button>
     </div>
   </div>
@@ -61,6 +60,7 @@
         <input type="tel" class="form-control" id="number" placeholder="Customer's Phone Number">
         <br>
         <label for="">Gender</label>
+        <br>
         <div class="gender" style="display: flex;">
           <div>
             <input type="radio" id="male" name="gen" value="male" style="padding-right: 5px;">

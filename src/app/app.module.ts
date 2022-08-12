@@ -5,11 +5,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShowCustComponent } from './components/show-cust/show-cust.component';
 import { FirstPageComponent } from './components/first-page/first-page.component';
+import { RemoveCustComponent } from './components/remove-cust/remove-cust.component';
+import { UpdateCustComponent } from './components/update-cust/update-cust.component';
 @NgModule({
   declarations: [
     AppComponent,
     ShowCustComponent,
-    FirstPageComponent
+    FirstPageComponent,
+    RemoveCustComponent,
+    UpdateCustComponent
   ],
   imports: [
     BrowserModule,
