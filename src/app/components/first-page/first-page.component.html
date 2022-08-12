@@ -1,0 +1,107 @@
+<nav class="navbar bg-dark">
+  <a class="navbar-brand" href="#"
+    style="font-family:'Raleway',sans-serif;font-style: italic;  color: #ffffff;height: 12vh; font-size: 40px;">
+    <img src="https://www.iskraemeco.com/app/uploads/2019/09/ie-favicon-red.png" alt="" width="48" height="46"
+      class="d-inline-block align-text-center">
+    Customer Management System
+  </a>
+</nav>
+<br>
+<br>
+<br>
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+      <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;" (click)="showCust()">Show all
+        Customers</button>
+    </div>
+    <div class="col"></div>
+    <div class="col">
+      <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;" data-bs-toggle="modal"
+        data-bs-target="#addCustomersModal">Add Customers</button>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="row">
+    <div class="col">
+      <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;" data-bs-toggle="modal"
+        data-bs-target="#removeCustomersModal">Remove Customers</button>
+    </div>
+    <div class="col"></div>
+    <div class="col">
+      <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;">Update Customer
+        Details</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modals -->
+<div class="modal fade" id="addCustomersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Add a new Customer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Customer's Name">
+        <br>
+        <label for="age" class="form-label">Age</label>
+        <input type="number" class="form-control" id="age" placeholder="Customer's Age" min="0">
+        <br>
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="email" placeholder="Customer's Email Address">
+        <br>
+        <label for="number" class="form-label">Phone Number</label>
+        <input type="tel" class="form-control" id="number" placeholder="Customer's Phone Number">
+        <br>
+        <label for="">Gender</label>
+        <div class="gender" style="display: flex;">
+          <div>
+            <input type="radio" id="male" name="gen" value="male" style="padding-right: 5px;">
+            <label for="male" style="padding-right: 50px;padding-left: 2px;">Male</label>
+          </div>
+          <div>
+            <input type="radio" id="female" name="gen" value="female">
+            <label for="female" style="padding-right: 50px;padding-left: 2px;">Female</label>
+          </div>
+          <div>
+            <input type="radio" id="other" name="gen" value="other">
+            <label for="other" style="padding-left: 2px;">Other</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add Customer</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="removeCustomersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLabel">Remove a Customer</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Customer's Name">
+        <br>
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="email" placeholder="Customer's Email Address">
+        <br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Remove Customer</button>
+      </div>
+    </div>
+  </div>
+</div>
