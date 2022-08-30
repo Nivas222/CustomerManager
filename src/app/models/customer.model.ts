@@ -1,8 +1,8 @@
 export  interface Customer{
     id:string;
-    name:string;
+    firstName:string;
     age:number;
     email:string;
-    number:number;
+    phoneNumber:number;
     gender:string;
 }

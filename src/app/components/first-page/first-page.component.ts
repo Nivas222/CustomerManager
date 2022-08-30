@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Customer } from 'src/app/models/customer.model';
+import { CustomerService } from 'src/app/service/customer.service';
+import {NgForm} from '@angular/forms'
+import { formatCurrency } from '@angular/common';
+
 
 @Component({
   selector: 'app-first-page',
@@ -7,16 +13,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./first-page.component.css']
 })
 export class FirstPageComponent implements OnInit {
-  constructor(public router: Router){}
-  ngOnInit(): void {
+  ngForm: any;
+  constructor(public router: Router, private service: CustomerService,private toastr:ToastrService) { }
+
+  customer: Customer = {
+    id: '',
+    firstName: '',
+    age: 0,
+    email: '',
+    phoneNumber: 0,
+    gender: ''
   }
-  showCust(){
+  
+  ngOnInit(): void {    
+    
+  }
+  showCust() {
     this.router.navigateByUrl('showCust')
   }
-  removeCust(){
+  removeCust() {
     this.router.navigateByUrl('removeCust')
   }
-  updateCust(){
+  updateCust() {
     this.router.navigateByUrl('updateCust')
+  }
+  onSubmit(form:NgForm) {
+    this.service.addCustomer(this.customer)
+      .subscribe(
+        response => {
+          this.router.navigateByUrl('');
+          form.reset();
+          this.toastr.success("Customer added")
+        }
+      )
   }
 }
