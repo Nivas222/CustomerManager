@@ -1,86 +1,88 @@
 <nav class="navbar bg-dark">
-    <a class="navbar-brand" href="#"
-      style="font-family:'Raleway',sans-serif;font-style: italic;  color: #ffffff;height: 12vh; font-size: 40px;">
-      <img src="https://www.iskraemeco.com/app/uploads/2019/09/ie-favicon-red.png" alt="" width="48" height="46"
-        class="d-inline-block align-text-center">
-      Customer Management System
-    </a>
-  </nav>
+  <a class="navbar-brand" href="#"
+    style="font-family:'Raleway',sans-serif;font-style: italic;  color: #ffffff;height: 8vh; font-size: 40px;">
+    <img src="https://www.iskraemeco.com/app/uploads/2019/09/ie-favicon-red.png" alt="" width="48" height="46"
+      class="d-inline-block align-text-center">
+    Customer Management System
+  </a>
+</nav>
+<div class="row">
+  <div class="search">
+    <input class="form-control" type="text" name="firstName" [(ngModel)]="searchText" placeholder="&#61442;">
+  </div>
+</div>
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th scope="col" (click)="sort('firstName')">Name&nbsp;<i class="fa fa-sort"></i></th>
+      <th scope="col" (click)="sort('email')">Email&nbsp;<i class="fa fa-sort"></i></th>
+      <th scope="col" (click)="sort('phoneNumber')">Phone Number&nbsp;<i class="fa fa-sort"></i></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let customer of customers|orderBy:key:reverse|filter:searchText|paginate:{itemsPerPage:20,currentPage:page,totalItems:totalLength}">
+      <td>{{customer.firstName}}</td>
+      <td>{{customer.email}}</td>
+      <td>{{customer.phoneNumber}}</td>
+      <td><button class="btn" data-bs-toggle="modal" data-bs-target="#updateCustomersModal"
+          (click)="populateForm(customer)"><i class="fa-solid fa-user-pen"></i></button></td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="page = $event" style="padding-left: 20rem;"></pagination-controls>
+<form #form="ngForm" (ngSubmit)="onSubmit()">
+  <div class="modal fade" id="updateCustomersModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLabel">Add a new Customer</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
 
-  <table class="table">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Age</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone Number</th>
-            <th scope="col">Gender</th>
-            <th scope="col"></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let customer of customers">
-            <td>{{customer.id}}</td>
-            <td>{{customer.firstName}}</td>
-            <td>{{customer.age}}</td>
-            <td>{{customer.email}}</td>
-            <td>{{customer.phoneNumber}}</td>
-            <td>{{customer.gender}}</td>
-            <td><button class="btn" data-bs-toggle="modal"
-                data-bs-target="#updateCustomersModal" (click)="populateForm(customer)"><i class="fa-solid fa-user-pen"></i></button></td>
-        </tr>
-    </tbody>
-  </table>
-  <form #form="ngForm" (ngSubmit)="onSubmit()">
-    <div class="modal fade" id="updateCustomersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title text-center" id="exampleModalLabel">Add a new Customer</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-  
-          <div class="modal-body">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Customer's Name" name="firstName"
-              [(ngModel)]="customer.firstName">
-            <br>
-            <label for="age" class="form-label">Age</label>
-            <input type="number" class="form-control" id="age" placeholder="Customer's Age" min="0" name="age"
-              [(ngModel)]="customer.age">
-            <br>
-            <label for="email" class="form-label">Email Address</label>
-            <input type="email" class="form-control" id="email" placeholder="Customer's Email Address" name="email"
-              [(ngModel)]="customer.email">
-            <br>
-            <label for="number" class="form-label">Phone Number</label>
-            <input type="tel" class="form-control" id="number" placeholder="Customer's Phone Number" name="phoneNumber"
-              [(ngModel)]="customer.phoneNumber">
-            <br>
-            <label for="">Gender</label>
-            <br>
-            <div class="gender" style="display: flex;">
-              <div>
-                <input type="radio" id="male" name="gen" value="male" style="padding-right: 5px;" name="gender"
-                  [(ngModel)]="customer.gender">
-                <label for="male" style="padding-right: 50px;padding-left: 2px;">Male</label>
-              </div>
-              <div>
-                <input type="radio" id="female" name="gen" value="female" name="gender" [(ngModel)]="customer.gender">
-                <label for="female" style="padding-right: 50px;padding-left: 2px;">Female</label>
-              </div>
-              <div>
-                <input type="radio" id="other" name="gen" value="other" name="gender" [(ngModel)]="customer.gender">
-                <label for="other" style="padding-left: 2px;">Other</label>
-              </div>
+        <div class="modal-body">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Customer's Name" name="firstName"
+            [(ngModel)]="customer.firstName">
+          <br>
+          <label for="age" class="form-label">Age</label>
+          <input type="number" class="form-control" id="age" placeholder="Customer's Age" min="0" name="age"
+            [(ngModel)]="customer.age">
+          <br>
+          <label for="email" class="form-label">Email Address</label>
+          <input type="email" class="form-control" id="email" placeholder="Customer's Email Address" name="email"
+            [(ngModel)]="customer.email">
+          <br>
+          <label for="number" class="form-label">Phone Number</label>
+          <input type="tel" class="form-control" id="number" placeholder="Customer's Phone Number" name="phoneNumber"
+            [(ngModel)]="customer.phoneNumber">
+          <br>
+          <label for="">Gender</label>
+          <br>
+          <div class="gender" style="display: flex;">
+            <div>
+              <input type="radio" id="male" name="gen" value="male" style="padding-right: 5px;" name="gender"
+                [(ngModel)]="customer.gender">
+              <label for="male" style="padding-right: 50px;padding-left: 2px;">Male</label>
+            </div>
+            <div>
+              <input type="radio" id="female" name="gen" value="female" name="gender" [(ngModel)]="customer.gender">
+              <label for="female" style="padding-right: 50px;padding-left: 2px;">Female</label>
+            </div>
+            <div>
+              <input type="radio" id="other" name="gen" value="other" name="gender" [(ngModel)]="customer.gender">
+              <label for="other" style="padding-left: 2px;">Other</label>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" data-bs-dismiss="modal" class="btn btn-primary" (click)="onSubmit()">Edit Customer</button>
-          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" data-bs-dismiss="modal" class="btn btn-primary" (click)="onSubmit()">Edit
+            Customer</button>
         </div>
       </div>
     </div>
-  </form>
+  </div>
+</form>

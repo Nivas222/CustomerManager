@@ -1,20 +1,9 @@
-<nav class="navbar bg-dark">
-  <a class="navbar-brand" href="#"
-    style="font-family:'Raleway',sans-serif;font-style: italic;  color: #ffffff;height: 8vh; font-size: 40px;">
-    <img src="https://www.iskraemeco.com/app/uploads/2019/09/ie-favicon-red.png" alt="" width="48" height="46"
-      class="d-inline-block align-text-center">
-    Customer Management System
-  </a>
-</nav>
-
-<br>
-<br>
-<br>
-<br>
+<!-- 
 <div class="container text-center">
   <div class="row">
     <div class="col">
-      <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;" (click)="showCust()"> Show all
+      <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;" (click)="showCust()"> Show
+        all
         Customers</button>
     </div>
     <div class="col">
@@ -33,7 +22,7 @@
       <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;" (click)="removeCust()">Remove
         Customers</button>
     </div>
- 
+
     <div class="col">
       <button class="btn" style="width: 286px;height: 70px;color:blue;border-color: blue;" (click)="updateCust()">Update
         Customer
@@ -42,7 +31,6 @@
   </div>
 </div>
 
-<!-- Modals -->
 <form #form="ngForm" (ngSubmit)="onSubmit(form)">
   <div class="modal fade" id="addCustomersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -57,9 +45,14 @@
           <input type="text" class="form-control" id="name" placeholder="Customer's Name" name="firstName"
             [(ngModel)]="customer.firstName">
           <br>
+          <div class="input-group">
+            <input class="form-control" (click)="d.toggle()" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+              #d="ngbDatepicker" [minDate]="{year: 1950, month: 1, day: 1}" (ngModelChange)="calculateAge()">  
+            <button class="btn btn-calendar" (click)="d.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+          </div>
+          <br>
           <label for="age" class="form-label">Age</label>
-          <input type="number" class="form-control" id="age" placeholder="Customer's Age" min="0" name="age"
-            [(ngModel)]="customer.age">
+          <input value = customer.age class="form-control" id="age" placeholder="Customer's Age" min="0" name="age" [(ngModel)]="customer.age">
           <br>
           <label for="email" class="form-label">Email Address</label>
           <input type="email" class="form-control" id="email" placeholder="Customer's Email Address" name="email"
@@ -89,7 +82,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" data-bs-dismiss="modal" class="btn btn-primary" (click)="onSubmit(form)">Add Customer</button>
+          <button type="button" data-bs-dismiss="modal" class="btn btn-primary" (click)="onSubmit(form)">Add
+            Customer</button>
         </div>
       </div>
     </div>
@@ -117,3 +111,6 @@
     </div>
   </div>
 </div>
+<script>
+
+</script> -->

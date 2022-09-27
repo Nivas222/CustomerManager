@@ -10,10 +10,12 @@ import { CustomerService } from '../../service/customer.service'
 export class UpdateCustComponent implements OnInit {
   title = 'customers';
   customers: Customer[] = [];
-
+  searchText: any;
   constructor(public router: Router, private service: CustomerService) { }
+  totalLength: any;
+  page: number = 1;
   customer: Customer = {
-    id: '',
+    id: 0,
     firstName: '',
     age: 0,
     email: '',
@@ -23,7 +25,7 @@ export class UpdateCustComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCustomers();
   }
-  getAllCustomers(){
+  getAllCustomers() {
     this.service.getAllCustomers().subscribe(
       (response: any) => {
         this.customers = response
@@ -35,13 +37,19 @@ export class UpdateCustComponent implements OnInit {
   }
   updateCustomer(customer: Customer) {
     this.service.updateCustomer(customer)
-    .subscribe(
-      response =>{
-        this.getAllCustomers();
-      }
-    )
+      .subscribe(
+        response => {
+          this.getAllCustomers();
+        }
+      )
   }
   populateForm(customer: Customer) {
     this.customer = customer;
+  }
+  key: string = '';
+  reverse: boolean = false;
+  sort(key: string) {
+    this.key = key;
+    this.reverse = !this.reverse;
   }
 }

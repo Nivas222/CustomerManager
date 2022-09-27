@@ -1,0 +1,18 @@
+.form-control::-webkit-input-placeholder {
+    font-family: FontAwesome;
+    font-weight: normal;
+    overflow: visible;
+    vertical-align: top;
+    display: inline-block !important;
+    padding-left: 5px;
+    padding-top: 2px;
+    color: black
+}
+.search {
+    max-width: 1000px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    margin: auto;
+    width: 800px;
+}

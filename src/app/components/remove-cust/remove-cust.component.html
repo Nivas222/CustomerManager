@@ -1,33 +1,95 @@
-<nav class="navbar bg-dark">
-    <a class="navbar-brand" href="#"
-      style="font-family:'Raleway',sans-serif;font-style: italic;  color: #ffffff;height: 8vh; font-size: 40px;">
-      <img src="https://www.iskraemeco.com/app/uploads/2019/09/ie-favicon-red.png" alt="" width="48" height="46"
-        class="d-inline-block align-text-center">
-      Customer Management System
-    </a>
-  </nav>
-
-  <table class="table">
+<div class="row">
+  <div class="col"></div>
+  <div class="col">
+    <div class="search" style="margin-bottom: 0.5px;"> 
+      <input class="form-control" type="text" name="firstName" [(ngModel)]="searchText" placeholder="&#61442;">
+    </div>
+  </div>
+  
+  <div class="col">
+    <div class="form-check" style="padding-left: 5rem; margin-top: 1rem;padding-right: 2rem;">
+      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="deleteMultiple" >
+      <label class="form-check-label" for="defaultCheck1" style="color: black;">
+        Delete multiple customers
+      </label>
+    </div>
+  </div>
+</div>
+<div *ngIf="deleteMultiple">
+  <div class="row">
+    <div class="col-6 "></div>
+    <div class="col-4"></div>
+    <div class="col-2" >
+      <div class="form-check"> 
+        <input class="form-check-input position-static" type="checkbox" id="selectAll" value="option1" aria-label="..."
+           (click)="selectAll($event)" [(ngModel)]="masterSelect">&nbsp;
+        <label class="form-check-label" for="selectAll" style="color: black;"> Select All</label>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="deleteMultiple">
+  <div class="row">
+    <div class="col-6 "></div>
+    <div class="col-4"></div>
+    <div class="col-2">
+      <div class="form-check" style="padding: right 100px;">
+        <button class="btn btn-danger" style="margin-left: 8.2rem; margin-bottom: 0.5rem;width: 200px;" (click)="deleteSelected()">Delete selected
+          customers</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <table class="table table-bordered table-hover" style="width:1000px;margin-left: 150px;border: black;">
     <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Age</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone Number</th>
-            <th scope="col">Gender</th>
-            <th scope="col"></th>
-        </tr>
+      <tr>
+        <th scope="col" (click)="sort('firstName')">Name&nbsp;<i class="fa fa-sort"></i></th>
+        <th scope="col" (click)="sort('email')">Email&nbsp;<i class="fa fa-sort"></i></th>
+        <th scope="col" (click)="sort('phoneNumber')">Phone Number&nbsp;<i class="fa fa-sort"></i></th>
+        <th scope="col"></th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let customer of customers">
-            <td>{{customer.id}}</td>
-            <td>{{customer.firstName}}</td>
-            <td>{{customer.age}}</td>
-            <td>{{customer.email}}</td>
-            <td>{{customer.phoneNumber}}</td>
-            <td>{{customer.gender}}</td>
-            <td><button class="btn" (click)="deleteCustomer(customer.id)"><i class="fa fa-times" style="color: red;"></i></button></td>
-        </tr>
+      <tr
+        *ngFor="let customer of customers|orderBy:key:reverse|filter:searchText|paginate:{itemsPerPage:20,currentPage:page,totalItems:totalLength}">
+        <td><button (click)="onCustomer(customer)" style="border: none;background:none;">{{customer.firstName}}</button>
+        </td>
+        <td>{{customer.email}}</td>
+        <td>{{customer.phoneNumber}}</td>
+        <td>
+          <div *ngIf="deleteMultiple;else elseBlock1">
+            <div *ngIf="masterSelect;else elseBlockk">
+              <div class="form-check">
+                <input class="form-check-input position-static" type="checkbox" id="blankCheckBox" value="option1"
+                  aria-label="..." [(ngModel)]="checkbox">
+              </div>
+            </div>
+          </div>
+          <ng-template #elseBlock1>
+            <button class="btn" (click)="deleteCustomer(template,customer.id)"><i class="fa fa-times"
+                style="color: red;"></i></button>
+          </ng-template>
+          <ng-template #elseBlockk>
+            <div class="form-check">
+              <input class="form-check-input position-static" type="checkbox" id="blankCheckBox" value="option1"
+                aria-label="...">
+            </div>
+          </ng-template>
+        </td>
+      </tr>
     </tbody>
   </table>
+  <div style="display: flex;align-items: center;justify-content: center;">
+    <pagination-controls (pageChange)="page = $event" style="padding-right: 15px;"></pagination-controls>
+  </div>
+</div>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Are you sure you want to delete this user?</p>
+    <button type="button" class="btn btn-success" (click)="confirm()">Yes</button>
+    &nbsp;
+    <button type="button" class="btn btn-danger" (click)="decline()">No</button>
+  </div>
+</ng-template>

@@ -1,1 +1,129 @@
-<router-outlet></router-outlet>
+<nav class="navbar bg-dark">
+    <a class="navbar-brand" href="#"
+        style="font-family:'Raleway',sans-serif;font-style: italic;  color: #ffffff;height: 8vh; font-size: 40px;">
+        <img src="https://www.iskraemeco.com/app/uploads/2019/09/ie-favicon-red.png" alt="" width="48" height="46"
+            class="d-inline-block align-text-center">
+        Customer Management System
+    </a>
+</nav>
+<mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+        <button mat-button class="menu-button" (click)="showCust()">
+            <mat-icon>account_box</mat-icon>&nbsp;
+            <span>View Customers</span>
+        </button>
+        <br>
+        <br>
+        <button mat-button class="menu-button" data-bs-toggle="modal" data-bs-target="#addCustomersModal">
+            <mat-icon>add_circle_outline</mat-icon>&nbsp;
+            <span>Add Customers</span>
+        </button>
+        <br>
+        <br>
+        <button mat-button class="menu-button" (click)="removeCust()">
+            <mat-icon>remove</mat-icon>
+            <span>Remove Customers</span>
+        </button>
+        <br>
+        <br>
+        <button mat-button class="menu-button">
+            <mat-icon>update</mat-icon>&nbsp;
+            <span>Update Customers</span>
+        </button>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="content mat-elevation-z4">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="modal fade" id="addCustomersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <label for="firstName" class="form-label required">Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Customer's Name"
+                        name="firstName" [(ngModel)]="customer.firstName" ng-model="name" required #firstName="ngModel">
+                    <div [hidden]="firstName.valid || firstName.pristine" class="alert alert-danger">
+                        Name is required
+                    </div>
+
+                    <br>
+
+                    <label for="dp" class="form-label required">Date of Birth</label>
+                    <input class="form-control" (click)="d.toggle()" placeholder="yyyy-mm-dd" id="dp" name="dp"
+                        [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" [minDate]="{year: 1950, month: 1, day: 1}"
+                        (ngModelChange)="calculateAge()">
+                    <!-- <button class="btn btn-calendar" (click)="d.toggle()" type="button"><i class="fa fa-calendar"
+                            aria-hidden="true"></i></button> -->
+
+                    <br>
+                    <label for="age" class="form-label">Age</label>
+                    <input value=customer.age class="form-control" id="age" placeholder="Customer's Age" min="0"
+                        name="age" [(ngModel)]="customer.age">
+                    <br>
+                    <label for="email" class="form-label required">Email Address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Customer's Email Address"
+                        name="email" [(ngModel)]="customer.email">
+                    <br>
+                    <label for="number" class="form-label required">Phone Number</label>
+                    <input type="tel" class="form-control" id="number" placeholder="Customer's Phone Number"
+                        name="phoneNumber" [(ngModel)]="customer.phoneNumber">
+                    <br>
+                    <label for="">Gender</label>
+                    <br>
+                    <div class="gender" style="display: flex;">
+                        <div>
+                            <input type="radio" id="male" name="gen" value="male" style="padding-right: 5px;"
+                                name="gender" [(ngModel)]="customer.gender">
+                            <label for="male" style="padding-right: 50px;padding-left: 2px;">Male</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="female" name="gen" value="female" name="gender"
+                                [(ngModel)]="customer.gender">
+                            <label for="female" style="padding-right: 50px;padding-left: 2px;">Female</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="other" name="gen" value="other" name="gender"
+                                [(ngModel)]="customer.gender">
+                            <label for="other" style="padding-left: 2px;">Other</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary" (click)="onSubmit(form)"
+                        [disabled]="!form.form.valid">Add
+                        Customer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="modal fade" id="removeCustomersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="exampleModalLabel">Remove a Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Customer's Name">
+                <br>
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Customer's Email Address">
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Remove Customer</button>
+            </div>
+        </div>
+    </div>
+</div>

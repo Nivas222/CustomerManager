@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/service/customer.service';
-import {NgForm} from '@angular/forms'
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms'
 import { formatCurrency } from '@angular/common';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -13,20 +14,22 @@ import { formatCurrency } from '@angular/common';
   styleUrls: ['./first-page.component.css']
 })
 export class FirstPageComponent implements OnInit {
+  today = new Date();
   ngForm: any;
-  constructor(public router: Router, private service: CustomerService,private toastr:ToastrService) { }
+  model: NgbDateStruct;
+  dob: Date;
+  constructor(public router: Router, private service: CustomerService, private toastr: ToastrService) { }
 
   customer: Customer = {
-    id: '',
+    id: 0,
     firstName: '',
     age: 0,
     email: '',
     phoneNumber: 0,
     gender: ''
   }
-  
-  ngOnInit(): void {    
-    
+
+  ngOnInit(): void {
   }
   showCust() {
     this.router.navigateByUrl('showCust')
@@ -37,14 +40,21 @@ export class FirstPageComponent implements OnInit {
   updateCust() {
     this.router.navigateByUrl('updateCust')
   }
-  onSubmit(form:NgForm) {
+  onSubmit(form: NgForm) {
+
     this.service.addCustomer(this.customer)
       .subscribe(
         response => {
           this.router.navigateByUrl('');
           form.reset();
-          this.toastr.success("Customer added")
+          this.toastr.success("New customer added")
         }
       )
+  }
+  calculateAge() {
+    let newAge=new Date(this.model.year,this.model.month-1,this.model.day)
+    let timeDiff = Math.abs(Date.now() - newAge.getTime());
+    this.customer.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365.25);
+    //this.customer.age=this.today.getFullYear() - this.model.year;
   }
 }
