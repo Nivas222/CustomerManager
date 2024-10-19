@@ -1,5 +1,6 @@
 # CustomerManagementSystem
 
+The Customer Management System UI is designed to provide a responsive and user-friendly interface for managing customer data. Built with Angular, it allows users to view, add, update, and delete customer information seamlessly. The application features dynamic forms, real-time validations, and organized customer records with search and filter capabilities to streamline customer interactions. This interface is optimized for performance, ensuring smooth transitions and fast data retrieval.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.1.
 
 ## Development server
